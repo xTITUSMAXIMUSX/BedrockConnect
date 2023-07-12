@@ -62,7 +62,6 @@ There are multiple BedrockConnect serverlist servers available that can be used,
 | 207.244.229.200 | <img src="https://flagicons.lipis.dev/flags/4x3/us.svg" height="20"> | [AdamAtomus](https://github.com/adamatomus) | Located in Central US |
 | 213.171.211.142 | <img src="https://flagicons.lipis.dev/flags/4x3/gb.svg" height="20"> | [kmpoppe](https://github.com/kmpoppe) | No DNS service, only BedrockConnect server  |
 | 217.160.58.93 | <img src="https://flagicons.lipis.dev/flags/4x3/de.svg" height="20"> | [kmpoppe](https://github.com/kmpoppe) | No DNS service, only BedrockConnect server |
-| 188.165.49.178 | <img src="https://flagicons.lipis.dev/flags/4x3/fr.svg" height="20"> | [Darkmoi3108](https://github.com/darkmoi3108) | |
 | 134.255.231.119 | <img src="https://flagicons.lipis.dev/flags/4x3/de.svg" height="20"> | [ZAP-Hosting](https://github.com/zaphosting) | |
 
 If you are currently hosting a BedrockConnect instance and are interested in adding it to this list, create a pull request adding it to the table above.
@@ -106,7 +105,9 @@ The following arguments can be placed in the startup command to ajust settings:
 | featured_servers | If true, the featured servers will be displayed in the serverlist.  If false, the servers are hidden. | true |
 | whitelist | Specify file containing list of whitelisted players. (Should be a text file with the player names specified on seperate lines) | |
 | fetch_featured_ips | If true, dynamically grab the featured server IPs from the domain names. If false, a file ```featured_server_ips.json``` will be generated, containing the hard-coded featured server IPs, and to allow changing them if needed.  | true |
+| fetch_ips | If true, dynamically grab the server IPs from domain names, of any server a user is attempting to join. | false |
 | language | Specify a file containing language customizations. See [guide for changing wording](#change-wording-of-serverlist) | |
+| store_display_names | If true, player displays names will be included in the stored player data. | true |
 
 MySQL example:
 ```
@@ -120,13 +121,13 @@ When hosting your own serverlist server, you add your own custom servers to the 
 [
 	{
 		"name": "My Custom Server 1",
-		"iconUrl": "https://i.imgur.com/3BmFZRE.png",
+		"iconUrl": "https://i.imgur.com/nhumQVP.png",
 		"address": "mc1.example.com",
 		"port": 19132
 	},
 	{
 		"name": "My Custom Server 2",
-		"iconUrl": "https://i.imgur.com/3BmFZRE.png",
+		"iconUrl": "https://i.imgur.com/nhumQVP.png",
 		"address": "mc2.example.com",
 		"port": 19132
 	}
@@ -172,7 +173,7 @@ The icon URL is not required, if omitted it will show the default icon.
 
 For cases where you want to change the wording/language of your BedrockConnect server, you can do this by creating a JSON file in the same directory as the BedrockConnect JAR. The contents of this file should contain the parts of the wording you want to overwrite. 
 
-You can find all the options that be overwritten here: https://github.com/Pugmatt/BedrockConnect/blob/master/serverlist-server/src/main/resources/language.json
+You can find all the options that can be overwritten here: https://github.com/Pugmatt/BedrockConnect/blob/master/serverlist-server/src/main/resources/language.json
 
 Example custom language file:
 ```json
@@ -200,7 +201,6 @@ In the case where you want to use your own DNS server instead of the one I suppl
 | mco.mineplex.com | 104.238.130.180  | 
 | play.inpvp.net | 104.238.130.180  |
 | mco.lbsg.net | 104.238.130.180  |
-| mco.cubecraft.net | 104.238.130.180  |
 | play.galaxite.net | 104.238.130.180 |
 | play.pixelparadise.gg | 104.238.130.180 |
 
