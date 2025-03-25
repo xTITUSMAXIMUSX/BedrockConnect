@@ -16,6 +16,17 @@ import org.cloudburstmc.protocol.bedrock.data.*;
 import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
 import org.cloudburstmc.protocol.bedrock.packet.*;
 import org.cloudburstmc.protocol.common.util.OptionalBoolean;
+import org.cloudburstmc.protocol.bedrock.data.inventory.CreativeItemData;
+import org.cloudburstmc.protocol.bedrock.data.inventory.CreativeItemGroup;
+import org.cloudburstmc.protocol.bedrock.data.inventory.CreativeItemCategory;
+import org.cloudburstmc.protocol.bedrock.data.inventory.ItemData;
+import org.cloudburstmc.protocol.common.DefinitionRegistry;
+import org.cloudburstmc.protocol.bedrock.data.definitions.ItemDefinition;
+
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -219,6 +230,9 @@ public class BCPlayer {
         startGamePacket.setPlayerGameType(GameType.SURVIVAL);
         startGamePacket.setPlayerPosition(Vector3f.from(0, 0, 0));
         startGamePacket.setRotation(Vector2f.from(1, 1));
+        startGamePacket.setServerId("");
+        startGamePacket.setWorldId("");
+        startGamePacket.setScenarioId("");
 
         startGamePacket.setSeed(-1);
         startGamePacket.setDimensionId(0);
@@ -283,9 +297,10 @@ public class BCPlayer {
 
         session.sendPacket(startGamePacket);
 
-        // Required to be sent for 1.16.100
+        ItemComponentPacket componentPacket = new ItemComponentPacket();
+        session.sendPacket(componentPacket);
+
         CreativeContentPacket creativeContentPacket = new CreativeContentPacket();
-        creativeContentPacket.setContents(new ItemData[0]);
         session.sendPacket(creativeContentPacket);
 
         spawn();
